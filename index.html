@@ -82,4 +82,163 @@
     </script>
 </body>
 </html>
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gece ve Gündüz Rejimi</title>
+    <style>
+        /* Əsas stil */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* Gündüz rejimi */
+        .day-mode {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Gece rejimi */
+        .night-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Günəş və Ay simvolları */
+        .icon {
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        /* Başlıq və hamburger menyu */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            align-items: center;
+            background-color: #f1f1f1;
+        }
+
+        .header .mode-toggle {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .content {
+            text-align: center;
+            padding: 100px;
+        }
+
+        /* Hamburger Menyu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            flex-direction: column;
+            justify-content: space-between;
+            height: 25px;
+            width: 30px;
+        }
+
+        .hamburger div {
+            background-color: #333;
+            height: 4px;
+            width: 100%;
+        }
+
+        /* Mobil cihazlarda hamburger menyu görünsün */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            .menu {
+                display: none;
+                position: absolute;
+                top: 60px;
+                right: 20px;
+                background-color: #fff;
+                border: 1px solid #ccc;
+                padding: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                width: 200px;
+            }
+
+            .menu.open {
+                display: block;
+            }
+
+            .menu a {
+                display: block;
+                padding: 10px;
+                text-decoration: none;
+                color: #333;
+                font-size: 16px;
+            }
+
+            .menu a:hover {
+                background-color: #f1f1f1;
+            }
+        }
+
+    </style>
+</head>
+<body class="day-mode">
+    <div class="header">
+        <h1>Saytın Başlığı</h1>
+        <!-- Hamburger Menyu -->
+        <div class="hamburger" onclick="toggleMenu()">
+            <div></div>
+            <div></div>
+            <div></div>
+        </div>
+
+        <button class="mode-toggle" onclick="toggleMode()">
+            <span id="mode-icon" class="icon">☀️</span>
+        </button>
+    </div>
+
+    <!-- Hamburger Menyu Açılır Menyu -->
+    <div id="menu" class="menu">
+        <a href="#">Ana səhifə</a>
+        <a href="#">Haqqında</a>
+        <a href="#">Əlaqə</a>
+    </div>
+
+    <div class="content">
+        <h2>Gündüz və Gece Rejimindən Faydalanın</h2>
+        <p>Bu sadə bir tətbiqdir. Gündüz və gecə rejimi arasında keçid edə bilərsiniz.</p>
+    </div>
+
+    <script>
+        // Gündüz və Gece Rejimi
+        function toggleMode() {
+            const body = document.body;
+            const icon = document.getElementById("mode-icon");
+
+            if (body.classList.contains("day-mode")) {
+                body.classList.remove("day-mode");
+                body.classList.add("night-mode");
+                icon.innerHTML = "🌙"; // Ay simvolu
+            } else {
+                body.classList.remove("night-mode");
+                body.classList.add("day-mode");
+                icon.innerHTML = "☀️"; // Günəş simvolu
+            }
+        }
+
+        // Hamburger Menyu
+        function toggleMenu() {
+            const menu = document.getElementById("menu");
+            menu.classList.toggle("open");
+        }
+    </script>
+</body>
+</html>
 
