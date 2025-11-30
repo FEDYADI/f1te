@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Video Zəng Platforması</title>
+    <title>Video və Səsli Zəng</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -55,11 +55,10 @@
 <body>
 
     <div class="header">
-        <h1>Video Zəng Platforması</h1>
+        <h1>Video və Səsli Zəng Platforması</h1>
     </div>
 
     <div class="video-container">
-        <!-- Video pəncərələri -->
         <video id="localVideo" class="video" autoplay muted></video>
         <video id="remoteVideo" class="video" autoplay></video>
     </div>
@@ -76,73 +75,54 @@
         const startCallButton = document.getElementById('startCallButton');
         const endCallButton = document.getElementById('endCallButton');
 
-        // Video zəng üçün ICE serverləri
         const iceServers = {
             iceServers: [{
                 urls: 'stun:stun.l.google.com:19302'
             }]
         };
 
-        // Kameraya daxil olmaq
         async function startCall() {
             try {
-                // Kamera və mikrofon üçün icazə alırıq
-                localStream = await navigator.mediaDevices.getUserMedia({
-                    video: true,
-                    audio: true
-                });
-
-                // Yerli video pəncərəsini göstərmək
+                localStream = await navigator.mediaDevices.getUserMedia({ video: true, audio: true });
                 document.getElementById('localVideo').srcObject = localStream;
 
-                // PeerConnection yaradılır
                 peerConnection = new RTCPeerConnection(iceServers);
                 peerConnection.addEventListener('icecandidate', handleICECandidate);
                 peerConnection.addEventListener('track', handleTrack);
 
-                // Yerli axını remote axına əlavə edirik
                 localStream.getTracks().forEach(track => {
                     peerConnection.addTrack(track, localStream);
                 });
 
-                // Zəng təklifini yaratmaq
                 const offer = await peerConnection.createOffer();
                 await peerConnection.setLocalDescription(offer);
-
-                // Təşəbbüs üçün serverə göndərilməsi lazım olan səsli zəng məlumatları
-                // Bu mərhələni server ilə əlaqələndirmək lazımdır (burada simulyasiya edilmişdir)
-                console.log("Zəng təklifi göndərildi");
-
-                // Çağırışı başlatmaq üçün butonu deaktiv edirik
+                
                 startCallButton.disabled = true;
                 endCallButton.disabled = false;
+
+                console.log("Zəng təklifi göndərildi");
 
             } catch (error) {
                 console.error('Zəng başlatılarkən xəta:', error);
             }
         }
 
-        // ICE adaylarını idarə etmək
         function handleICECandidate(event) {
             if (event.candidate) {
                 console.log("Yeni ICE aday: ", event.candidate);
-                // Serverə göndərilməli
             }
         }
 
-        // Uzaq tərəfdən gələn video və audio axınlarını idarə etmək
         function handleTrack(event) {
             remoteStream = event.streams[0];
             document.getElementById('remoteVideo').srcObject = remoteStream;
         }
 
-        // Çağırışı bitirmək
         function endCall() {
             localStream.getTracks().forEach(track => track.stop());
             remoteStream.getTracks().forEach(track => track.stop());
             peerConnection.close();
 
-            // Butonları bərpa etmək
             startCallButton.disabled = false;
             endCallButton.disabled = true;
         }
@@ -150,3 +130,4 @@
 
 </body>
 </html>
+
