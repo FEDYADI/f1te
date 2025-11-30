@@ -43,3 +43,33 @@
         Info
     </div>
 </div>
+.menu-container {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+}
+
+.hamburger {
+    font-size: 32px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.menu {
+    display: none;
+    margin-top: 10px;
+    padding: 10px 20px;
+    background: #eee;
+    border-radius: 8px;
+    font-size: 20px;
+}
+<script>
+function toggleMenu() {
+    var menu = document.getElementById("menu");
+    if (menu.style.display === "block") {
+        menu.style.display = "none";
+    } else {
+        menu.style.display = "block";
+    }
+}
+</script>    
