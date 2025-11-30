@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="az">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gece ve Gündüz Rejimi</title>
+    <title>Sayt Başlığı</title>
     <style>
         /* Əsas stil */
         body {
@@ -48,12 +47,6 @@
             cursor: pointer;
         }
 
-        .content {
-            text-align: center;
-            padding: 100px;
-        }
-
-        /* Hamburger Menyu */
         .hamburger {
             display: none;
             cursor: pointer;
@@ -104,6 +97,42 @@
             }
         }
 
+        /* Qeydiyyat Forması */
+        .form-container {
+            display: flex;
+            justify-content: center;
+            padding: 50px;
+        }
+
+        .form-container form {
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            width: 300px;
+        }
+
+        .form-container input {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .form-container button {
+            width: 100%;
+            padding: 10px;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container button:hover {
+            background-color: #555;
+        }
     </style>
 </head>
 <body class="day-mode">
@@ -115,7 +144,6 @@
             <div></div>
             <div></div>
         </div>
-
         <button class="mode-toggle" onclick="toggleMode()">
             <span id="mode-icon" class="icon">☀️</span>
         </button>
@@ -126,11 +154,29 @@
         <a href="#">Ana səhifə</a>
         <a href="#">Haqqında</a>
         <a href="#">Əlaqə</a>
+        <a href="#register-form">Qeydiyyat</a>
     </div>
 
-    <div class="content">
-        <h2>Gündüz və Gece Rejimindən Faydalanın</h2>
-        <p>Bu sadə bir tətbiqdir. Gündüz və gecə rejimi arasında keçid edə bilərsiniz.</p>
+    <!-- Qeydiyyat Forması -->
+    <div class="form-container" id="register-form">
+        <form id="registerForm">
+            <h2>Qeydiyyat</h2>
+            <input type="text" id="username" placeholder="İstifadəçi adı" required>
+            <input type="email" id="email" placeholder="Email" required>
+            <input type="password" id="password" placeholder="Şifrə" required>
+            <input type="password" id="confirmPassword" placeholder="Şifrəni təkrar yazın" required>
+            <button type="submit">Qeydiyyatdan keç</button>
+            <p><a href="#" onclick="showForgotPassword()">Şifrəni unutmusan?</a></p>
+        </form>
+    </div>
+
+    <!-- Şifrəni Unutma Forması -->
+    <div class="form-container" id="forgotPasswordForm" style="display: none;">
+        <form id="forgotForm">
+            <h2>Şifrəni Unutdunuz?</h2>
+            <input type="email" id="forgotEmail" placeholder="Email" required>
+            <button type="submit">Kod göndər</button>
+        </form>
     </div>
 
     <script>
@@ -155,7 +201,39 @@
             const menu = document.getElementById("menu");
             menu.classList.toggle("open");
         }
+
+        // Qeydiyyat Forması göndərmək
+        document.getElementById("registerForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const username = document.getElementById("username").value;
+            const email = document.getElementById("email").value;
+            const password = document.getElementById("password").value;
+            const confirmPassword = document.getElementById("confirmPassword").value;
+
+            if (password !== confirmPassword) {
+                alert("Şifrələr uyğun gəlmir!");
+                return;
+            }
+
+            alert(`Qeydiyyat uğurla tamamlandı! İstifadəçi adı: ${username}, Email: ${email}`);
+            // Burada serverə göndərmək və qeydiyyat etmək lazımdır
+        });
+
+        // Şifrəni unudanda
+        document.getElementById("forgotForm").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const forgotEmail = document.getElementById("forgotEmail").value;
+            // Burada serverə sorğu göndərmək lazımdır
+            alert(`Şifrə sıfırlama linki ${forgotEmail} ünvanına göndərildi!`);
+        });
+
+        // Şifrəni unudanda formu göstərmək
+        function showForgotPassword() {
+            document.getElementById("registerForm").style.display = "none";
+            document.getElementById("forgotPasswordForm").style.display = "block";
+        }
     </script>
 </body>
 </html>
+
 
