@@ -1,1 +1,85 @@
+<!DOCTYPE html>
+<html lang="az">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gece ve Gündüz Rejimi</title>
+    <style>
+        /* Əsas stil */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        /* Gündüz rejimi */
+        .day-mode {
+            background-color: #f5f5f5;
+            color: #333;
+        }
+
+        /* Gece rejimi */
+        .night-mode {
+            background-color: #333;
+            color: #fff;
+        }
+
+        /* Günəş və Ay simvolları */
+        .icon {
+            font-size: 40px;
+            cursor: pointer;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            padding: 20px;
+            align-items: center;
+            background-color: #f1f1f1;
+        }
+
+        .header .mode-toggle {
+            background: none;
+            border: none;
+            font-size: 30px;
+            cursor: pointer;
+        }
+
+        .content {
+            text-align: center;
+            padding: 100px;
+        }
+    </style>
+</head>
+<body class="day-mode">
+    <div class="header">
+        <h1>Saytın Başlığı</h1>
+        <button class="mode-toggle" onclick="toggleMode()">
+            <span id="mode-icon" class="icon">☀️</span>
+        </button>
+    </div>
+    <div class="content">
+        <h2>Gündüz və Gece Rejimindən Faydalanın</h2>
+        <p>Bu sadə bir tətbiqdir. Gündüz və gecə rejimi arasında keçid edə bilərsiniz.</p>
+    </div>
+
+    <script>
+        function toggleMode() {
+            const body = document.body;
+            const icon = document.getElementById("mode-icon");
+
+            if (body.classList.contains("day-mode")) {
+                body.classList.remove("day-mode");
+                body.classList.add("night-mode");
+                icon.innerHTML = "🌙"; // Ay simvolu
+            } else {
+                body.classList.remove("night-mode");
+                body.classList.add("day-mode");
+                icon.innerHTML = "☀️"; // Günəş simvolu
+            }
+        }
+    </script>
+</body>
+</html>
 
