@@ -3,274 +3,174 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sayt Başlığı</title>
+    <title>Söhbət Platforması</title>
     <style>
+        /* Əsas Stil */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            transition: background-color 0.5s, color 0.5s;
-        }
-
-        .day-mode {
-            background-color: #f5f5f5;
-            color: #333;
-        }
-
-        .night-mode {
-            background-color: #333;
-            color: #fff;
+            background-color: #f4f4f9;
         }
 
         .header {
-            display: flex;
-            justify-content: space-between;
-            padding: 20px;
-            align-items: center;
-            background-color: #f1f1f1;
-        }
-
-        .icon {
-            font-size: 40px;
-            cursor: pointer;
-        }
-
-        .form-container {
-            display: flex;
-            justify-content: center;
-            padding: 50px;
-        }
-
-        .form-container form {
-            background: #fff;
-            padding: 20px;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            border-radius: 8px;
-            width: 300px;
-        }
-
-        .form-container input {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-        }
-
-        .form-container button {
-            width: 100%;
-            padding: 10px;
             background-color: #333;
             color: #fff;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .form-container button:hover {
-            background-color: #555;
+            padding: 20px;
+            text-align: center;
         }
 
         .chat-container {
-            display: none;
-            padding: 20px;
-            background: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            position: absolute;
-            bottom: 50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 80%;
-            max-width: 600px;
-            border-radius: 8px;
-        }
-
-        .chat-container textarea {
+            display: flex;
+            flex-direction: column;
+            justify-content: flex-end;
             width: 100%;
-            padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 4px;
-            border: 1px solid #ccc;
-            font-size: 16px;
+            max-width: 600px;
+            margin: 20px auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
         }
 
-        .chat-container .messages {
-            max-height: 300px;
+        .messages {
+            max-height: 400px;
             overflow-y: auto;
-            border-bottom: 1px solid #ccc;
-            padding-bottom: 10px;
-            margin-bottom: 10px;
-        }
-
-        .chat-container .messages p {
-            background-color: #f1f1f1;
-            padding: 8px;
-            border-radius: 4px;
-            margin: 5px 0;
-        }
-
-        .chat-container button {
-            background-color: #4CAF50;
-            border: none;
-            color: white;
             padding: 10px;
+            background-color: #fafafa;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .message {
+            padding: 8px;
+            margin: 5px 0;
+            border-radius: 5px;
+            background-color: #e2e2e2;
+        }
+
+        .message.user {
+            background-color: #b0d4ff;
+            align-self: flex-start;
+        }
+
+        .message.other {
+            background-color: #ffb0b0;
+            align-self: flex-end;
+        }
+
+        .input-area {
+            display: flex;
+            padding: 10px;
+            border-top: 1px solid #ddd;
+        }
+
+        .input-area input {
+            width: 70%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
+            margin-right: 10px;
+        }
+
+        .input-area button {
+            padding: 10px;
+            background-color: #333;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background-color: #555;
+        }
+
+        .name-input {
             text-align: center;
-            text-decoration: none;
-            display: inline-block;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius: 4px;
+            margin: 20px auto;
         }
 
-        .chat-container button:hover {
-            background-color: #45a049;
-        }
-
-        /* Mobil uyğunlaşma */
-        @media (max-width: 768px) {
-            .form-container {
-                padding: 20px;
-            }
-        }
-
-        .forgot-password {
-            font-size: 12px;
-            color: #007BFF;
-            cursor: pointer;
-        }
-
-        .forgot-password:hover {
-            text-decoration: underline;
-        }
-
-        .register-link {
-            color: #007BFF;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        .register-link:hover {
-            text-decoration: underline;
+        .name-input input {
+            padding: 10px;
+            margin-bottom: 10px;
         }
     </style>
 </head>
-<body class="day-mode">
+<body>
+
     <!-- Başlıq -->
     <div class="header">
-        <h1>Sayt Başlığı</h1>
-        <button class="mode-toggle" onclick="toggleMode()">
-            <span id="mode-icon" class="icon">☀️</span>
-        </button>
+        <h1>Söhbət Platforması</h1>
     </div>
 
-    <!-- Giriş Forması -->
-    <div class="form-container" id="loginForm">
-        <form id="login">
-            <h2>Giriş</h2>
-            <input type="email" id="loginEmail" placeholder="Email" required>
-            <input type="password" id="loginPassword" placeholder="Şifrə" required>
-            <button type="submit">Giriş</button>
-            <p class="forgot-password" onclick="showRegister()">Hesabınız yoxdursa? <span class="register-link">Qeydiyyat</span></p>
-        </form>
+    <!-- İstifadəçi adı daxil etmək -->
+    <div class="name-input" id="nameInputContainer">
+        <input type="text" id="userName" placeholder="Adınızı daxil edin" />
+        <button onclick="enterChat()">Söhbətə Başla</button>
     </div>
 
-    <!-- Qeydiyyat Forması -->
-    <div class="form-container" id="registerForm" style="display: none;">
-        <form id="register">
-            <h2>Qeydiyyat</h2>
-            <input type="text" id="registerUsername" placeholder="İstifadəçi adı" required>
-            <input type="email" id="registerEmail" placeholder="Email" required>
-            <input type="password" id="registerPassword" placeholder="Şifrə" required>
-            <input type="password" id="confirmPassword" placeholder="Şifrəni təkrar yazın" required>
-            <button type="submit">Qeydiyyatdan Keç</button>
-            <p class="forgot-password" onclick="showLogin()">Zaten hesabınız var? <span class="register-link">Giriş</span></p>
-        </form>
-    </div>
-
-    <!-- Söhbət Pəncərəsi -->
-    <div class="chat-container" id="chatContainer">
-        <h3>Söhbət</h3>
+    <!-- Chat Container -->
+    <div class="chat-container" id="chatContainer" style="display: none;">
         <div class="messages" id="messages"></div>
-        <textarea id="messageInput" placeholder="Mesajınızı yazın..." rows="4"></textarea>
-        <button onclick="sendMessage()">Göndər</button>
+        <div class="input-area">
+            <input type="text" id="messageInput" placeholder="Mesajınızı yazın..." />
+            <button onclick="sendMessage()">Göndər</button>
+        </div>
     </div>
 
     <script>
-        // Gündüz və Gece Rejimi
-        function toggleMode() {
-            const body = document.body;
-            const icon = document.getElementById("mode-icon");
+        // Global dəyişənlər
+        let userName = '';
+        const messagesContainer = document.getElementById('messages');
+        const chatContainer = document.getElementById('chatContainer');
+        const nameInputContainer = document.getElementById('nameInputContainer');
 
-            if (body.classList.contains("day-mode")) {
-                body.classList.remove("day-mode");
-                body.classList.add("night-mode");
-                icon.innerHTML = "🌙"; // Ay simvolu
-            } else {
-                body.classList.remove("night-mode");
-                body.classList.add("day-mode");
-                icon.innerHTML = "☀️"; // Günəş simvolu
-            }
-        }
-
-        // Qeydiyyat formunu göstərmək
-        function showRegister() {
-            document.getElementById('loginForm').style.display = 'none';
-            document.getElementById('registerForm').style.display = 'block';
-        }
-
-        // Giriş formunu göstərmək
-        function showLogin() {
-            document.getElementById('registerForm').style.display = 'none';
-            document.getElementById('loginForm').style.display = 'block';
-        }
-
-        // Giriş etmək
-        document.getElementById("login").addEventListener("submit", function(e) {
-            e.preventDefault();
-            const email = document.getElementById("loginEmail").value;
-            const password = document.getElementById("loginPassword").value;
-            // Burada email və şifrə doğrulama etməlisiniz (server tərəfi ilə).
-            alert(`Giriş uğurludur! Email: ${email}`);
-            showChat();
-        });
-
-        // Qeydiyyat etmək
-        document.getElementById("register").addEventListener("submit", function(e) {
-            e.preventDefault();
-            const username = document.getElementById("registerUsername").value;
-            const email = document.getElementById("registerEmail").value;
-            const password = document.getElementById("registerPassword").value;
-            const confirmPassword = document.getElementById("confirmPassword").value;
-
-            if (password !== confirmPassword) {
-                alert("Şifrələr uyğun gəlmir!");
+        // Chatə başlama funksiyası
+        function enterChat() {
+            userName = document.getElementById('userName').value;
+            if (userName.trim() === '') {
+                alert('Adınızı daxil edin');
                 return;
             }
+            nameInputContainer.style.display = 'none';
+            chatContainer.style.display = 'flex';
+            sendMessage('Sistemdən: Salam, hər kəs! Söhbətə başlaya bilərsiniz.');
+        }
 
-            // Burada serverə qeydiyyat göndərilməlidir
-            alert(`Qeydiyyat uğurla tamamlandı! İstifadəçi adı: ${username}`);
-            showChat();
+        // Mesaj göndərmə funksiyası
+        function sendMessage(message = null) {
+            let msgText = message || document.getElementById('messageInput').value;
+            if (msgText.trim() === '') return;
+
+            const messageElement = document.createElement('div');
+            messageElement.classList.add('message', 'user');
+            messageElement.textContent = userName + ': ' + msgText;
+
+            messagesContainer.appendChild(messageElement);
+            document.getElementById('messageInput').value = '';
+
+            // Real zamanlı olaraq digər istifadəçilərin də mesajlarını görməsi üçün avtomatik aşağıya yığılma
+            messagesContainer.scrollTop = messagesContainer.scrollHeight;
+
+            // Cavab mesajı əlavə et (istəyinizə uyğun olaraq dəyişə bilər)
+            setTimeout(() => {
+                const reply = document.createElement('div');
+                reply.classList.add('message', 'other');
+                reply.textContent = 'Sistemdən: Cavab verildi!';
+                messagesContainer.appendChild(reply);
+
+                messagesContainer.scrollTop = messagesContainer.scrollHeight;
+            }, 1000);  // 1 saniyəlik cavab gecikməsi
+        }
+
+        // Enter düyməsi ilə mesaj göndərmək
+        document.getElementById('messageInput').addEventListener('keypress', function(event) {
+            if (event.key === 'Enter') {
+                sendMessage();
+            }
         });
-
-        // Söhbət pəncərəsini göstərmək
-        function showChat() {
-            document.getElementById("chatContainer").style.display = 'block';
-        }
-
-        // Mesaj göndərmək
-        function sendMessage() {
-            const message = document.getElementById("messageInput").value;
-            if (message.trim() === '') return;
-            const messagesContainer = document.getElementById("messages");
-            const newMessage = document.createElement("p");
-            newMessage.textContent = message;
-            messagesContainer.appendChild(newMessage);
-            document.getElementById("messageInput").value = '';
-            messagesContainer.scrollTop = messagesContainer.scrollHeight; // Son mesaja yığılma
-        }
     </script>
 </body>
 </html>
-
 
 
