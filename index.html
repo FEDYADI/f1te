@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sayt Başlığı</title>
     <style>
-        /* Əsas stil */
         body {
             font-family: Arial, sans-serif;
             margin: 0;
@@ -13,25 +12,16 @@
             transition: background-color 0.5s, color 0.5s;
         }
 
-        /* Gündüz rejimi */
         .day-mode {
             background-color: #f5f5f5;
             color: #333;
         }
 
-        /* Gece rejimi */
         .night-mode {
             background-color: #333;
             color: #fff;
         }
 
-        /* Günəş və Ay simvolları */
-        .icon {
-            font-size: 40px;
-            cursor: pointer;
-        }
-
-        /* Başlıq və hamburger menyu */
         .header {
             display: flex;
             justify-content: space-between;
@@ -40,64 +30,11 @@
             background-color: #f1f1f1;
         }
 
-        .header .mode-toggle {
-            background: none;
-            border: none;
-            font-size: 30px;
+        .icon {
+            font-size: 40px;
             cursor: pointer;
         }
 
-        .hamburger {
-            display: none;
-            cursor: pointer;
-            flex-direction: column;
-            justify-content: space-between;
-            height: 25px;
-            width: 30px;
-        }
-
-        .hamburger div {
-            background-color: #333;
-            height: 4px;
-            width: 100%;
-        }
-
-        /* Mobil cihazlarda hamburger menyu görünsün */
-        @media (max-width: 768px) {
-            .hamburger {
-                display: flex;
-            }
-
-            .menu {
-                display: none;
-                position: absolute;
-                top: 60px;
-                right: 20px;
-                background-color: #fff;
-                border: 1px solid #ccc;
-                padding: 10px;
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-                width: 200px;
-            }
-
-            .menu.open {
-                display: block;
-            }
-
-            .menu a {
-                display: block;
-                padding: 10px;
-                text-decoration: none;
-                color: #333;
-                font-size: 16px;
-            }
-
-            .menu a:hover {
-                background-color: #f1f1f1;
-            }
-        }
-
-        /* Qeydiyyat Forması */
         .form-container {
             display: flex;
             justify-content: center;
@@ -133,50 +70,129 @@
         .form-container button:hover {
             background-color: #555;
         }
+
+        .chat-container {
+            display: none;
+            padding: 20px;
+            background: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            position: absolute;
+            bottom: 50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            max-width: 600px;
+            border-radius: 8px;
+        }
+
+        .chat-container textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+        }
+
+        .chat-container .messages {
+            max-height: 300px;
+            overflow-y: auto;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+        }
+
+        .chat-container .messages p {
+            background-color: #f1f1f1;
+            padding: 8px;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+
+        .chat-container button {
+            background-color: #4CAF50;
+            border: none;
+            color: white;
+            padding: 10px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+
+        .chat-container button:hover {
+            background-color: #45a049;
+        }
+
+        /* Mobil uyğunlaşma */
+        @media (max-width: 768px) {
+            .form-container {
+                padding: 20px;
+            }
+        }
+
+        .forgot-password {
+            font-size: 12px;
+            color: #007BFF;
+            cursor: pointer;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        .register-link {
+            color: #007BFF;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        .register-link:hover {
+            text-decoration: underline;
+        }
     </style>
 </head>
 <body class="day-mode">
+    <!-- Başlıq -->
     <div class="header">
-        <h1>Saytın Başlığı</h1>
-        <!-- Hamburger Menyu -->
-        <div class="hamburger" onclick="toggleMenu()">
-            <div></div>
-            <div></div>
-            <div></div>
-        </div>
+        <h1>Sayt Başlığı</h1>
         <button class="mode-toggle" onclick="toggleMode()">
             <span id="mode-icon" class="icon">☀️</span>
         </button>
     </div>
 
-    <!-- Hamburger Menyu Açılır Menyu -->
-    <div id="menu" class="menu">
-        <a href="#">Ana səhifə</a>
-        <a href="#">Haqqında</a>
-        <a href="#">Əlaqə</a>
-        <a href="#register-form">Qeydiyyat</a>
+    <!-- Giriş Forması -->
+    <div class="form-container" id="loginForm">
+        <form id="login">
+            <h2>Giriş</h2>
+            <input type="email" id="loginEmail" placeholder="Email" required>
+            <input type="password" id="loginPassword" placeholder="Şifrə" required>
+            <button type="submit">Giriş</button>
+            <p class="forgot-password" onclick="showRegister()">Hesabınız yoxdursa? <span class="register-link">Qeydiyyat</span></p>
+        </form>
     </div>
 
     <!-- Qeydiyyat Forması -->
-    <div class="form-container" id="register-form">
-        <form id="registerForm">
+    <div class="form-container" id="registerForm" style="display: none;">
+        <form id="register">
             <h2>Qeydiyyat</h2>
-            <input type="text" id="username" placeholder="İstifadəçi adı" required>
-            <input type="email" id="email" placeholder="Email" required>
-            <input type="password" id="password" placeholder="Şifrə" required>
+            <input type="text" id="registerUsername" placeholder="İstifadəçi adı" required>
+            <input type="email" id="registerEmail" placeholder="Email" required>
+            <input type="password" id="registerPassword" placeholder="Şifrə" required>
             <input type="password" id="confirmPassword" placeholder="Şifrəni təkrar yazın" required>
-            <button type="submit">Qeydiyyatdan keç</button>
-            <p><a href="#" onclick="showForgotPassword()">Şifrəni unutmusan?</a></p>
+            <button type="submit">Qeydiyyatdan Keç</button>
+            <p class="forgot-password" onclick="showLogin()">Zaten hesabınız var? <span class="register-link">Giriş</span></p>
         </form>
     </div>
 
-    <!-- Şifrəni Unutma Forması -->
-    <div class="form-container" id="forgotPasswordForm" style="display: none;">
-        <form id="forgotForm">
-            <h2>Şifrəni Unutdunuz?</h2>
-            <input type="email" id="forgotEmail" placeholder="Email" required>
-            <button type="submit">Kod göndər</button>
-        </form>
+    <!-- Söhbət Pəncərəsi -->
+    <div class="chat-container" id="chatContainer">
+        <h3>Söhbət</h3>
+        <div class="messages" id="messages"></div>
+        <textarea id="messageInput" placeholder="Mesajınızı yazın..." rows="4"></textarea>
+        <button onclick="sendMessage()">Göndər</button>
     </div>
 
     <script>
@@ -196,18 +212,34 @@
             }
         }
 
-        // Hamburger Menyu
-        function toggleMenu() {
-            const menu = document.getElementById("menu");
-            menu.classList.toggle("open");
+        // Qeydiyyat formunu göstərmək
+        function showRegister() {
+            document.getElementById('loginForm').style.display = 'none';
+            document.getElementById('registerForm').style.display = 'block';
         }
 
-        // Qeydiyyat Forması göndərmək
-        document.getElementById("registerForm").addEventListener("submit", function(e) {
+        // Giriş formunu göstərmək
+        function showLogin() {
+            document.getElementById('registerForm').style.display = 'none';
+            document.getElementById('loginForm').style.display = 'block';
+        }
+
+        // Giriş etmək
+        document.getElementById("login").addEventListener("submit", function(e) {
             e.preventDefault();
-            const username = document.getElementById("username").value;
-            const email = document.getElementById("email").value;
-            const password = document.getElementById("password").value;
+            const email = document.getElementById("loginEmail").value;
+            const password = document.getElementById("loginPassword").value;
+            // Burada email və şifrə doğrulama etməlisiniz (server tərəfi ilə).
+            alert(`Giriş uğurludur! Email: ${email}`);
+            showChat();
+        });
+
+        // Qeydiyyat etmək
+        document.getElementById("register").addEventListener("submit", function(e) {
+            e.preventDefault();
+            const username = document.getElementById("registerUsername").value;
+            const email = document.getElementById("registerEmail").value;
+            const password = document.getElementById("registerPassword").value;
             const confirmPassword = document.getElementById("confirmPassword").value;
 
             if (password !== confirmPassword) {
@@ -215,25 +247,30 @@
                 return;
             }
 
-            alert(`Qeydiyyat uğurla tamamlandı! İstifadəçi adı: ${username}, Email: ${email}`);
-            // Burada serverə göndərmək və qeydiyyat etmək lazımdır
+            // Burada serverə qeydiyyat göndərilməlidir
+            alert(`Qeydiyyat uğurla tamamlandı! İstifadəçi adı: ${username}`);
+            showChat();
         });
 
-        // Şifrəni unudanda
-        document.getElementById("forgotForm").addEventListener("submit", function(e) {
-            e.preventDefault();
-            const forgotEmail = document.getElementById("forgotEmail").value;
-            // Burada serverə sorğu göndərmək lazımdır
-            alert(`Şifrə sıfırlama linki ${forgotEmail} ünvanına göndərildi!`);
-        });
+        // Söhbət pəncərəsini göstərmək
+        function showChat() {
+            document.getElementById("chatContainer").style.display = 'block';
+        }
 
-        // Şifrəni unudanda formu göstərmək
-        function showForgotPassword() {
-            document.getElementById("registerForm").style.display = "none";
-            document.getElementById("forgotPasswordForm").style.display = "block";
+        // Mesaj göndərmək
+        function sendMessage() {
+            const message = document.getElementById("messageInput").value;
+            if (message.trim() === '') return;
+            const messagesContainer = document.getElementById("messages");
+            const newMessage = document.createElement("p");
+            newMessage.textContent = message;
+            messagesContainer.appendChild(newMessage);
+            document.getElementById("messageInput").value = '';
+            messagesContainer.scrollTop = messagesContainer.scrollHeight; // Son mesaja yığılma
         }
     </script>
 </body>
 </html>
+
 
 
